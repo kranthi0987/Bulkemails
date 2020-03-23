@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.accountapi'
+    'apps.accountapi',
+    'apps.mailsending'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'whatsappbussiness',
+        'NAME': 'bulkmails',
         'USER': 'root',
         'PASSWORD': "root",
         'HOST': "localhost",

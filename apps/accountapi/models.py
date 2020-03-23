@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
-import ipdb
+
 
 # Create your models here.
 #
