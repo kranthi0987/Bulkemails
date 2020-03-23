@@ -1,0 +1,6 @@
+{
+  "name": "MultiMediaMessages",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./MultiMediaMessages.js"
+}
