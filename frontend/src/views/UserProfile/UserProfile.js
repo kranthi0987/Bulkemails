@@ -1,27 +1,16 @@
 import React, {Component} from 'react';
 import {
-    Badge,
     Button,
     Card,
     CardBody,
-    CardFooter,
     CardHeader,
     Col,
-    Collapse,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    Fade,
     Form,
     FormGroup,
-    FormText,
-    FormFeedback,
     Input,
     InputGroup,
     InputGroupAddon,
-    InputGroupButtonDropdown,
     InputGroupText,
-    Label,
     Row,
 } from 'reactstrap';
 import {BASEURL} from "../../Constants";
@@ -36,20 +25,21 @@ class UserProfile extends Component {
             phone: '',
             username: '',
             email: '',
-            lastlogin: ''
+            lastlogin: '',
+            gender: '',
         };
     }
 
     componentDidMount() {
-         let currentComponent = this;
+        let currentComponent = this;
         var token = localStorage.getItem('token');
         console.log(token);
-        let url = BASEURL + 'api/auth/userdetails';
+        let url = BASEURL + 'api/profile/';
         fetch(url, {
             method: "GET",
             headers: ({
                 "Accept": "application/json",
-                "Authorization": 'Token ' + token,
+                "Authorization": 'Bearer ' + token,
                 "Content-Type": "application/json"
             })
         }).then(response => {
@@ -72,12 +62,13 @@ class UserProfile extends Component {
             //     localStorage.setItem("token", data.token);
             // }
 
-            currentComponent.setState({id: data.id});
-            currentComponent.setState({fullname: data.fullname});
-            currentComponent.setState({username: data.username});
-            currentComponent.setState({email: data.email});
-            currentComponent.setState({phone: data.phone});
-            currentComponent.setState({lastlogin: data.lastlogin});
+            currentComponent.setState({id: data.data[0].id});
+            currentComponent.setState({gender: data.data[0].gender});
+            currentComponent.setState({fullname: data.data[0].first_name + data.data[0].last_name});
+            currentComponent.setState({username: data.data[0].email});
+            currentComponent.setState({email: data.data[0].email});
+            currentComponent.setState({phone: data.data[0].phone_number});
+            currentComponent.setState({lastlogin: data.data[0].last_login_date_time});
             console.log('request succeeded with JSON response', data)
         })
     }
@@ -89,7 +80,8 @@ class UserProfile extends Component {
             phone,
             username,
             email,
-            lastlogin
+            lastlogin,
+            gender
         } = this.state;
         return (
             <div className="animated fadeIn">
@@ -106,7 +98,7 @@ class UserProfile extends Component {
                                             <InputGroupAddon addonType="prepend">
                                                 <InputGroupText>User ID</InputGroupText>
                                             </InputGroupAddon>
-                                            <Input type="number"  value={id} disabled />
+                                            <Input type="text" value={id} disabled/>
                                             <InputGroupAddon addonType="append">
                                                 <InputGroupText><i className="fa fa-user"></i></InputGroupText>
                                             </InputGroupAddon>
@@ -118,6 +110,17 @@ class UserProfile extends Component {
                                                 <InputGroupText>Full Name</InputGroupText>
                                             </InputGroupAddon>
                                             <Input type="name" value={fullname} autoComplete="name" disabled/>
+                                            <InputGroupAddon addonType="append">
+                                                <InputGroupText><i className="fa fa-user"></i></InputGroupText>
+                                            </InputGroupAddon>
+                                        </InputGroup>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <InputGroup>
+                                            <InputGroupAddon addonType="prepend">
+                                                <InputGroupText>GENDER</InputGroupText>
+                                            </InputGroupAddon>
+                                            <Input type="text" value={gender} autoComplete="name" disabled/>
                                             <InputGroupAddon addonType="append">
                                                 <InputGroupText><i className="fa fa-user"></i></InputGroupText>
                                             </InputGroupAddon>
@@ -180,7 +183,7 @@ class UserProfile extends Component {
                                     {/*    </InputGroup>*/}
                                     {/*</FormGroup>*/}
                                     <FormGroup className="form-actions">
-                                        <Button type="submit" size="sm" disabled color="primary">Submit</Button>
+                                        <Button type="submit" size="sm" disabled color="primary">ok</Button>
                                     </FormGroup>
                                 </Form>
                             </CardBody>

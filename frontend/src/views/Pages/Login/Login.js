@@ -54,7 +54,7 @@ class Login extends Component {
 
         this.setState({loading: true});
 
-        let url = BASEURL + 'api/auth/login';
+        let url = BASEURL + 'api/signin/';
 
         fetch(url, {
             method: "POST",
@@ -63,7 +63,7 @@ class Login extends Component {
                 "Content-Type": "application/json"
             }),
             body: JSON.stringify({
-                username: username,
+                email: username,
                 password: password
             })
         }).then(response => {
@@ -71,7 +71,7 @@ class Login extends Component {
                 toaster.notify("Sucessfull logged in", {
                     duration: 2000, type: "success"
                 });
-                this.props.history.push('/dashboard')
+                this.props.history.push('/dashboard');
                 return response.json()
             } else if (response.status === 400) {
                 toaster.notify("failed login", {
@@ -94,12 +94,12 @@ class Login extends Component {
     userprofilesavingtolocalstorage(token) {
         let currentComponent = this;
         console.log(token);
-        let url = BASEURL + 'api/auth/userdetails';
+        let url = BASEURL + 'api/profile/';
         fetch(url, {
             method: "GET",
             headers: ({
                 "Accept": "application/json",
-                "Authorization": 'Token ' + token,
+                "Authorization": 'Bearer ' + token,
                 "Content-Type": "application/json"
             })
         }).then(response => {
@@ -122,15 +122,22 @@ class Login extends Component {
             //     localStorage.setItem("token", data.token);
             // }
             if (data != null) {
-                localStorage.setItem("id", data.id);
-                localStorage.setItem("fullname", data.fullname);
-                localStorage.setItem("username", data.username);
-                localStorage.setItem("email", data.email);
-                localStorage.setItem("phone", data.phone);
-                localStorage.setItem("lastlogin", data.lastlogin);
+                // localStorage.setItem("fullname", data.fullname);
+                // localStorage.setItem("username", data.username);
+                // localStorage.setItem("email", data.email);
+                // localStorage.setItem("phone", data.phone);
+                // localStorage.setItem("lastlogin", data.lastlogin);
+
+                localStorage.setItem("id", data.data[0].id);
+                localStorage.setItem("gender", data.data[0].gender);
+                localStorage.setItem("fullname", data.data[0].first_name + data.data[0].last_name);
+                localStorage.setItem("username", data.data[0].email);
+                localStorage.setItem("email", data.data[0].email);
+                localStorage.setItem("phone", data.data[0].phone_number);
+                localStorage.setItem("lastlogin", data.data[0].last_login_date_time);
             }
 
-            console.log('request succeeded with JSON response', data)
+            console.log('request succeeded with JSON response', data.data[0])
         })
     }
 
@@ -153,10 +160,10 @@ class Login extends Component {
                                                         <i className="icon-user"></i>
                                                     </InputGroupText>
                                                 </InputGroupAddon>
-                                                <Input type="text" placeholder="Username" autoComplete="username"
+                                                <Input type="text" placeholder="Email" autoComplete="username"
                                                        name="username" value={username} onChange={this.handleChange}/>
                                                 {submitted && !username &&
-                                                <div className="help-block">Username is required</div>
+                                                <div className="help-block">email is required</div>
                                                 }
                                             </InputGroup>
                                             <InputGroup className="mb-4">

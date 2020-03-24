@@ -17,7 +17,7 @@ export default {
             },
         },
         {
-            name: 'Whatsapp Message',
+            name: 'Text Messages',
             url: '/base',
             icon: 'icon-star',
             children: [
@@ -31,21 +31,21 @@ export default {
                 //     url: '/base/forms',
                 //     icon: 'icon-puzzle',
                 // },
+                // {
+                //     name: 'Message',
+                //     url: '/base/messages',
+                //     icon: 'icon-puzzle',
+                // },
                 {
-                    name: 'Message',
-                    url: '/base/messages',
-                    icon: 'icon-puzzle',
-                },
-                {
-                    name: 'Bulk Message',
+                    name: 'Email Message',
                     url: '/base/bulkmessages',
                     icon: 'icon-puzzle',
                 },
-                {
-                    name: 'Multimedia Message',
-                    url: '/base/multimediamessages',
-                    icon: 'icon-puzzle',
-                },
+                // {
+                //     name: 'Multimedia Message',
+                //     url: '/base/multimediamessages',
+                //     icon: 'icon-puzzle',
+                // },
                 // {
                 //     name: 'Collage Message',
                 //     url: '/base/collagemediamessages',

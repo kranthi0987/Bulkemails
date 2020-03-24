@@ -1,17 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Badge,
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Row,
-    Table
-} from 'reactstrap';
-import axios from 'axios';
+import {Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table} from 'reactstrap';
 import {BASEURL} from "../../../Constants";
 // function getvals(){
 //     return fetch('http://localhost:8000/message/listallmessages/',
@@ -46,10 +34,12 @@ class Tables extends Component {
     }
 
     makeHttpRequestWithPage = async url => {
+        var token = localStorage.getItem('token');
         let response = await fetch(url, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
+                "Authorization": 'Bearer ' + token,
                 'Content-Type': 'application/json',
             },
         });
@@ -62,10 +52,10 @@ class Tables extends Component {
             prev_page: data.previous,
             count: data.count
         });
-    }
+    };
 
     componentDidMount() {
-        this.makeHttpRequestWithPage(BASEURL+"message/listallmessages/");
+        this.makeHttpRequestWithPage(BASEURL + "api/reports");
 
     }
 
@@ -168,17 +158,13 @@ class Tables extends Component {
         console.log(this.state.next_page);
         console.log(this.state.prev_page);
         if (this.state.results !== null) {
-            results = this.state.results.map(user => (
-                <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.from_whom}</td>
-                    <td>{user.to_whom}</td>
-                    <td>{user.body}</td>
-                    <td>{user.file_url}</td>
-                    <td>{user.content_type}</td>
-                    <td>{user.message_type}</td>
-                    <td>{user.message_date_time}</td>
-                    <td>{user.sent_status}</td>
+            results = this.state.results.map(reports => (
+                <tr key={reports.id}>
+                    <td>{reports.id}</td>
+                    <td>{reports.report_uuid}</td>
+                    <a href={"#ttext/base/tables/" + reports.reports}>
+                        <td>{reports.reports}</td>
+                    </a>
                 </tr>
 
             ));
@@ -196,14 +182,8 @@ class Tables extends Component {
                                     <thead>
                                     <tr>
                                         <th>S No</th>
-                                        <th>from</th>
-                                        <th>to</th>
-                                        <th>Message</th>
-                                        <th>file_url</th>
-                                        <th>content type</th>
-                                        <th>message type</th>
-                                        <th>Message Date time</th>
-                                        <th>Message Status</th>
+                                        <th>report uuid</th>
+                                        <th>report</th>
                                     </tr>
                                     </thead>
                                     <tbody>
