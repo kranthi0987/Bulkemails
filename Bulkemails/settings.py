@@ -29,7 +29,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,11 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users.user',
-    'apps.users.profile',
-    'apps.mailsending',
-    'corsheaders',
     'rest_framework',
+    'corsheaders',
+    'apps.users.api.user',
+    'apps.users.api.profile',
+    'apps.mailsending',
+    'apps.landingpage',
+    'apps.users.web.webusersystem'
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'Bulkemails.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -178,16 +179,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+# TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIR = [
-    os.path.join(BASE_DIR, 'whatsappbusiness/static')
+    # os.path.join(BASE_DIR, 'whatsappbusiness/static'),
+    # TEMPLATE_DIR,
+    os.path.join(BASE_DIR, 'apps/landingpage/templates/../apps/landingpage/static/assets'),
+    os.path.join(BASE_DIR,'apps/users/web/webusersystem/static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 EMAIL_HOST = 'smtp.swipemail.in'
 EMAIL_HOST_USER = 'iconassociatess'

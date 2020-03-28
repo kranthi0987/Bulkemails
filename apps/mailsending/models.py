@@ -13,10 +13,7 @@ class MailModel(models.Model):
     to_email = models.EmailField()
     sent_date_time = models.DateTimeField(default=datetime.now)
     subject = models.TextField()
-    mailcontent = models.ForeignKey('MailContent', on_delete=models.CASCADE)
+    mailcontent = models.TextField()
     message = models.TextField()
 
 
-class MailContent(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4)
-    htmlcontent = models.TextField()

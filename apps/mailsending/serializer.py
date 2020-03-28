@@ -4,6 +4,8 @@ from apps.mailsending.models import MailModel
 
 
 class MailModelSerializer(serializers.ModelSerializer):
+    # topic = mailContentSerializer(read_only=True)
+
     class Meta:
         model = MailModel
         fields = '__all__'
@@ -12,10 +14,11 @@ class MailModelSerializer(serializers.ModelSerializer):
         return MailModel.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.description = validated_data.get('description', instance.description)
-        instance.body = validated_data.get('body', instance.body)
-        instance.author_id = validated_data.get('author_id', instance.author_id)
+        instance.from_email = validated_data.get('from_email', instance.from_email)
+        instance.to_email = validated_data.get('to_email', instance.to_email)
+        instance.subject = validated_data.get('subject', instance.subject)
+        instance.message = validated_data.get('message', instance.message)
+        instance.mailcontent=validated_data.get('mailcontent',instance.mailcontent)
 
         instance.save()
         return instance

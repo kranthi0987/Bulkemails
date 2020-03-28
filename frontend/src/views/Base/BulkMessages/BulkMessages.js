@@ -37,11 +37,13 @@ class BulkMessages extends Component {
             loading: false,
             error: '',
             vcardfile: '',
-            buttonState: ''
+            buttonState: '',
+            html:''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearForm = this.clearForm.bind(this);
+
     }
 
     toggle() {
@@ -59,25 +61,28 @@ class BulkMessages extends Component {
         this.setState({buttonState: 'loading'});
         this.setState({submitted: true});
         const {to_who, message_status, message} = this.state;
-        this.exportHtml();
+        // this.exportHtml();
         // stop here if form is invalid
-        if (!(message)) {
-            return;
-        }
+        // if (!(message)) {
+        //     return;
+        // }
         console.log(to_who, message);
 
         this.setState({loading: true});
-
-        let url = BASEURL + 'api/sendsms';
+        this.exportHtml();
+        console.log(this.state.html);
+        let url = BASEURL + 'api/mail/';
 
         const inputFiles = document.querySelectorAll('input[type="file"]');
 
 
         let formData = new FormData();
-        for (const file of inputFiles) {
-            formData.append('vcardfile', file.files[0]);
-        }
+        // for (const file of inputFiles) {
+        //     formData.append('vcardfile', file.files[0]);
+        // }
+
         formData.append('message', message);
+
         // formData.append('sent_status', 'true');
         // // formData.append('vcardfile',inputFiles);
 
@@ -85,9 +90,18 @@ class BulkMessages extends Component {
             method: "POST",
             headers: ({
                 "Accept": "application/json",
+                "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + localStorage.getItem('token'),
             }),
-            body: formData
+            body: JSON.stringify({
+                mails: {
+                    from_email: "icon@icon-rim.com",
+                    to_email: "to@icon-rim.com",
+                    subject: "marketing",
+                    message: this.state.html,
+                    mailcontent: "hiiii"
+                }
+            })
         }).then(response => {
             if (response.status === 200) {
                 console.log(response);
@@ -117,7 +131,8 @@ class BulkMessages extends Component {
 
     exportHtml = () => {
         this.editor.exportHtml(data => {
-            const {design, html} = data;
+             const {design, html}= data;
+            this.setState({html:html});
             console.log('exportHtml', html)
         })
     };

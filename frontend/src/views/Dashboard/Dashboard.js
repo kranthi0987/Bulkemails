@@ -17,37 +17,38 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        var {
-            textmessages,
-            multimediamessages,
-            totalmessages,
-            systemtime
-        } = this.state
-        axios.get(BASEURL + 'mediaupload/messagecount/', {
-            responseType: 'json'
-        }).then(response => {
-            // this.state.tableData = response.data;
-            console.log(response.data);
-            // this.generateTableData()
-            this.setState({textmessages: response.data.messagecount})
-        });
-        axios.get(BASEURL + 'message/messagecount/', {
-            responseType: 'json'
-        }).then(response => {
-            // this.state.tableData = response.data;
-            console.log(response.data);
-            // this.generateTableData()
-            this.setState({multimediamessages: response.data.messagecount})
-        });
-         axios.get(BASEURL + 'api/auth/getrunningtime', {
-            responseType: 'json'
-        }).then(response => {
-            // this.state.tableData = response.data;
-            console.log(response.data);
-            // this.generateTableData()
-            this.setState({systemtime: response.data.messagecount})
-        });
+        // var {
+        //     textmessages,
+        //     multimediamessages,
+        //     totalmessages,
+        //     systemtime
+        // } = this.state
+        // axios.get(BASEURL + 'mediaupload/messagecount/', {
+        //     responseType: 'json'
+        // }).then(response => {
+        //     // this.state.tableData = response.data;
+        //     console.log(response.data);
+        //     // this.generateTableData()
+        //     this.setState({textmessages: response.data.messagecount})
+        // });
+        // axios.get(BASEURL + 'message/messagecount/', {
+        //     responseType: 'json'
+        // }).then(response => {
+        //     // this.state.tableData = response.data;
+        //     console.log(response.data);
+        //     // this.generateTableData()
+        //     this.setState({multimediamessages: response.data.messagecount})
+        // });
+        //  axios.get(BASEURL + 'api/auth/getrunningtime', {
+        //     responseType: 'json'
+        // }).then(response => {
+        //     // this.state.tableData = response.data;
+        //     console.log(response.data);
+        //     // this.generateTableData()
+        //     this.setState({systemtime: response.data.messagecount})
+        // });
     }
+
 
     // getwallpapers(e) {
     //     // make API call
