@@ -1,7 +1,6 @@
-from django.contrib.auth import authenticate
-from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-import bcrypt
+from django.contrib.auth import authenticate
+from django.shortcuts import render, redirect
 
 from apps.users.api.user.models import User
 
