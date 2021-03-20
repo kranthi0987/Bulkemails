@@ -3,7 +3,7 @@ Django==3.0.4
 djangorestframework==3.11.0
 django-cors-headers==3.2.1
 djangorestframework-jwt==1.11.0
-Jinja2==2.11.1
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 mysqlclient==1.4.6
 pytz==2019.3
